@@ -6,7 +6,7 @@ import (
 	"xyz-auth-service/common/config"
 	commonErr "xyz-auth-service/common/error"
 	"xyz-auth-service/modules/user/entity"
-	"xyz-auth-service/modules/user/internal/repository"
+	"xyz-auth-service/modules/user/repository"
 )
 
 type UserService struct {
