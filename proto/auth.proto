@@ -19,7 +19,6 @@ message LoginResponse {
 }
 
 service AuthService {
-    rpc Register(LoginRequest) returns (UserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc GetCurrentUser(google.protobuf.Empty) returns (UserResponse);
 }

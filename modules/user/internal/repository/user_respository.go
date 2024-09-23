@@ -25,7 +25,6 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 type UserRepositoryUseCase interface {
 	FindByEmail(ctx context.Context, email string) (*entity.User, error)
 	FindById(ctx context.Context, uuid string) (*entity.User, error)
-	Create(ctx context.Context, req *entity.User) (*entity.User, error)
 }
 
 func (u *UserRepository) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
@@ -60,16 +59,4 @@ func (u *UserRepository) FindById(ctx context.Context, uuid string) (*entity.Use
 	}
 
 	return &user, nil
-}
-
-func (u *UserRepository) Create(ctx context.Context, req *entity.User) (*entity.User, error) {
-	ctxSpan, span := trace.StartSpan(ctx, "UserRepository - Create")
-	defer span.End()
-
-	if err := u.db.Debug().WithContext(ctxSpan).Create(req).Error; err != nil {
-		log.Println("ERROR: [UserRepository - Create] Internal server error:", err)
-		return nil, err
-	}
-
-	return req, nil
 }
