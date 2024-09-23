@@ -2,6 +2,12 @@ package authorization
 
 type AccessibleRoles map[string]map[string][]uint32
 
+/*
+	1. Super Admin
+	2. Admin
+	3. Consumer
+*/
+
 const (
 	BasePath = "xyz-auth-service"
 	AuthSvc  = "AuthService"
@@ -9,7 +15,7 @@ const (
 
 var roles = AccessibleRoles{
 	"/" + BasePath + "." + AuthSvc + "/": {
-		// "DeletePost":  {1, 2, 8},
+		"GetCurrentUser": {1, 2, 3},
 	},
 }
 
