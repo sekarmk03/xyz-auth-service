@@ -7,7 +7,7 @@ message User {
     string uuid = 1;
     string email = 2;
     string password = 3;
-    string role = 4;
+    uint32 role = 4;
     string created_at = 5;
     string updated_at = 6;
 }
