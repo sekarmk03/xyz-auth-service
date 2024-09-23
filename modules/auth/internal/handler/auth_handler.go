@@ -9,7 +9,6 @@ import (
 	commonErr "xyz-auth-service/common/error"
 	commonJwt "xyz-auth-service/common/jwt"
 	"xyz-auth-service/common/utils"
-	"xyz-auth-service/modules/user/entity"
 	"xyz-auth-service/modules/user/service"
 	"xyz-auth-service/pb"
 
@@ -76,7 +75,6 @@ func (ah *AuthHandler) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 		Code:    uint32(http.StatusOK),
 		Message: "login success",
 		Token:   token,
-		Data:    entity.ConvertEntityToProto(user),
 	}, nil
 }
 

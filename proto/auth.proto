@@ -15,7 +15,6 @@ message LoginResponse {
     uint32 code = 1;
     string message = 2;
     string token = 3;
-    User data = 4;
 }
 
 service AuthService {
