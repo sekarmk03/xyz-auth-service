@@ -3,30 +3,23 @@ syntax = "proto3";
 package xyz_grpc;
 option go_package = "./;pb";
 
+import "user.proto";
 import "google/protobuf/empty.proto";
 
-message Auth {
-    uuid uuid = 1;
-    string email = 2;
-    string password = 3;
-    string created_at = 4;
-    string updated_at = 5;
+message LoginRequest {
+    string email = 1;
+    string password = 2;
 }
 
-message AuthListResponse {
+message LoginResponse {
     uint32 code = 1;
     string message = 2;
-    repeated Auth data = 3;
-}
-
-message AuthResponse {
-    uint32 code = 1;
-    string message = 2;
-    Auth data = 3;
+    string token = 3;
+    User data = 4;
 }
 
 service AuthService {
-    rpc Register(Auth) returns (AuthResponse);
-    rpc Login(Auth) returns (AuthResponse);
-    rpc GetCurrentUser(google.protobuf.Empty) returns (AuthResponse);
+    rpc Register(LoginRequest) returns (UserResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc GetCurrentUser(google.protobuf.Empty) returns (UserResponse);
 }
