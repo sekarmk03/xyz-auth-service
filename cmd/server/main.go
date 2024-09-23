@@ -8,6 +8,8 @@ import (
 	"xyz-auth-service/common/mysql"
 	"xyz-auth-service/server"
 
+	authModule "xyz-auth-service/modules/auth"
+
 	"google.golang.org/grpc"
 	"gorm.io/gorm"
 )
@@ -29,7 +31,7 @@ func main() {
 	grpcServer := server.NewGrpcServer(cfg.Port.GRPC, jwtManager)
 	grpcConn := server.InitGRPCConn(fmt.Sprintf("127.0.0.1:%v", cfg.Port.GRPC), false, "")
 
-	registerGrpcHandlers(grpcServer.Server, *cfg, db, grpcConn)
+	registerGrpcHandlers(grpcServer.Server, *cfg, db, jwtManager, grpcConn)
 
 	_ = grpcServer.Run()
 	_ = grpcServer.AwaitTermination()
@@ -41,8 +43,8 @@ func checkError(err error) {
 	}
 }
 
-func registerGrpcHandlers(server *grpc.Server, cfg config.Config, db *gorm.DB, grpcConn *grpc.ClientConn) {
-	// transactionModule.InitGrpc(server, cfg, db, grpcConn)
+func registerGrpcHandlers(server *grpc.Server, cfg config.Config, db *gorm.DB, jwtManager *commonJwt.JWT, grpcConn *grpc.ClientConn) {
+	authModule.InitGrpc(server, cfg, db, jwtManager, grpcConn)
 }
 
 func splash(cfg *config.Config) {
