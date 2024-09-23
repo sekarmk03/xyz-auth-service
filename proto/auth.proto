@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package xyz_grpc;
+option go_package = "./;pb";
+
+import "google/protobuf/empty.proto";
+
+message Auth {
+    uuid uuid = 1;
+    string email = 2;
+    string password = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+message AuthListResponse {
+    uint32 code = 1;
+    string message = 2;
+    repeated Auth data = 3;
+}
+
+message AuthResponse {
+    uint32 code = 1;
+    string message = 2;
+    Auth data = 3;
+}
+
+service AuthService {
+    rpc Register(Auth) returns (AuthResponse);
+    rpc Login(Auth) returns (AuthResponse);
+    rpc GetCurrentUser(google.protobuf.Empty) returns (AuthResponse);
+}
